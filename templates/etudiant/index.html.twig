@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EtudiantController!{% endblock %}
+
+{% block body %}
+{% for message in app.session.flashbag.get('success') %}
+ <div style="color:green">
+    {{message}}
+</div>
+{% endfor %}
+
+{% for message in app.session.flashbag.get('error') %}
+ <div style="color:red">
+    {{message}}
+</div>
+{% endfor %}
+<h1>Liste des etudiants </h1>
+<a href="{{path('etudiant.add')}}">Ajouter des etudiants</a>
+
+<table class="table">
+        <tr class="table-primary" >
+            <th >firstname</th>
+            <th class="table-primary">name</th>
+            <th class="table-primary">section</th>
+            <th class="table-primary">option</th>
+        </tr >
+        {% for etd in etudiants %}
+        <tr class="table-danger">
+            <td>{{etd.nom}}</td>
+            <td>{{etd.prenom}}</td>
+            {% if etd.section == null %}
+            <td>Etudiant non encore effecteé </td>
+            {% else %}
+            <td>{{etd.section.designation}}</td>
+            {% endif %}
+            <td>
+                <a href="{{path('etudiant.add',{id:etd.id})}}">edit</a>
+                <a href="{{path('etudiant.remove',{id:etd.id})}}">remove</a>
+            </td>
+
+
+
+
+             
+        </tr>
+        
+ 
+{% endfor %}
+    
+
+   
+</table>
+
+
+
+
+{% endblock %}
